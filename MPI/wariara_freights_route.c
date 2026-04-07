@@ -31,7 +31,7 @@
 
 int n; // If this is -1, it signals an error/exit
 int adj[MAX_N][MAX_N]; // adjacency matrix size allocation
-int lcl_best_cost = 2147483647; // Each process' current best cost 
+int lcl_best_cost = 2147483647; // Each process' current best cost (LEGACY)
 int lcl_best_path[MAX_N]; // Each process' curr best path
 
 
@@ -263,7 +263,7 @@ int main(int argc, char **argv)
     }
 
 
-    // sendBuf structure: [Cost, City0, City1,.,CityN-1]
+    // sendBuf structure: [Cost, City0, City1,de.,CityN-1]
     int sendBuf[MAX_N + 1];
     sendBuf[0] = local_best;
     for(int i = 0; i < n; i++) {
@@ -325,6 +325,11 @@ int main(int argc, char **argv)
 
         free(recvBuf); // cleanup mem
     }
+    
+
+    MPI_Finalize();
+    return 0;
+}
     
 
     MPI_Finalize();
